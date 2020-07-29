@@ -5,22 +5,34 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <body>
+      <input id="input" placeholder="What needs to be done?" />
+        <ul id="list"></ul>
+      </body>
     </div>
   );
+}
+
+function newItem() {
+  var item = document.getElementById('input').value;
+  var ul = document.getElementById('list');
+  var li = document.createElement('li');
+  li.appendChild(document.createTextNode("- "+item));
+  ul.appendChild(li);
+
+  document.getElementById('input').value = '';
+
+  li.onclick = removeItem;
+}
+
+document.body.onkeyup = function(e) {
+  if(e.keyCode == 13){
+    newItem();
+  }
+}
+
+function removeItem(e) {
+  e.target.remove();
 }
 
 export default App;
