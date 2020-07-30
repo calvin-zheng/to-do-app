@@ -78,3 +78,8 @@ body {
 .list-of-todos:empty {
   border: none;
 }
+
+.completed {
+  color: white;
+  padding-top: 10px;
+}

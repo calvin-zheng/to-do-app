@@ -1,31 +1,29 @@
-    import React, { useState, useEffect, useRef } from 'react';
+    import React, { useState, useEffect } from 'react';
 
     function Todo() {
         const [currentTodo, setCurrentTodo] = useState("");
         const [todos, setTodos] = useState([]);
-        const nTasks = useRef();
+        const [nComplete, setComplete] = useState(0);
 
         useEffect(() => {
             const list = localStorage.getItem('todo');
             const todoItems = JSON.parse(list);
             setTodos(todoItems);
-            nTasks.current = JSON.parse(localStorage.getItem('nTasks'));
-            if(nTasks.current === null)
-            {
-                nTasks.current = 0;
+            if(JSON.parse(localStorage.getItem('nComplete')) != null) {
+                setComplete(JSON.parse(localStorage.getItem('nComplete')));
             }
         }, []);
 
         function addTaskCompleted(){
-            nTasks.current += 1;
-            console.log(nTasks.current);
-            localStorage.setItem('nTasks', JSON.stringify(nTasks));
+            let new_complete = nComplete + 1;
+            setComplete(new_complete);
+            localStorage.setItem('nComplete', JSON.stringify(new_complete));
         }
 
         function removeTaskCompleted(){
-            nTasks.current -= 1;
-            console.log(nTasks.current);
-            localStorage.setItem('nTasks', JSON.stringify(nTasks));
+            let new_complete = nComplete - 1;
+            setComplete(new_complete);
+            localStorage.setItem('nComplete', JSON.stringify(new_complete));
         }
 
         function createNewTodo(currentTodo) {
@@ -75,7 +73,8 @@
         }
 
 
-    return <div>
+    return (
+        <div>
         <input className="todo-input"
                value={currentTodo}
                onChange={e => {
@@ -103,17 +102,12 @@
                     </div>
                 ))
             }
-<<<<<<< HEAD
-=======
-            </div>
-
-            <div className = "completed" >
-                {`${nTasks.current} items completed`}
-            </div>
->>>>>>> parent of 734511a... let's try again
         </div>
-
-    </div>;
+            <div className = "completed" >
+                {`${nComplete} items completed`}
+            </div>
+        </div>
+    );
     }
 
 
