@@ -1,9 +1,12 @@
     import React, { useState, useEffect } from 'react';
+    import Editable from './Editable';
 
     function Todo() {
         const [currentTodo, setCurrentTodo] = useState("");
         const [todos, setTodos] = useState([]);
         const [nComplete, setComplete] = useState(0);
+        const [category, setCategory] = useState("");
+        const [categories, setCategories] = useState("");
 
         useEffect(() => {
             const list = localStorage.getItem('todo');
@@ -31,7 +34,8 @@
                 let todosArray = [...todos];
                 todosArray.push({
                     todo: currentTodo,
-                    isCompleted: false
+                    isCompleted: false,
+                    category: ""
                 });
                 setTodos(todosArray);
                 const todoData = JSON.stringify(todosArray);
@@ -40,7 +44,8 @@
             else{
                 let firstTodo = [{
                     todo: currentTodo,
-                    isCompleted: false
+                    isCompleted: false,
+                    category: ""
                 }];
                 setTodos(firstTodo);
                 const todoData = JSON.stringify(firstTodo);
@@ -83,7 +88,7 @@
                onKeyPress={e => {
                    if (e.key === "Enter") {
                        createNewTodo(currentTodo);
-                       setCurrentTodo("")
+                       setCurrentTodo("");
                    }
                }}
                placeholder="What needs to get done?"
@@ -96,6 +101,21 @@
                             {todo.isCompleted && <span>&#x2714;</span>}
                         </div>
                         <div className={todo.isCompleted ? "done" : ""}>{todo.todo}</div>
+                        {/*<Editable*/}
+                        {/*    text={todo.category}*/}
+                        {/*    placeholder={"Category"}*/}
+                        {/*    type="input"*/}
+                        {/*    >*/}
+                        {/*        <input*/}
+                        {/*            type="text"*/}
+                        {/*            name="category"*/}
+                        {/*            placeholder="Category"*/}
+                        {/*            value={todo.category}*/}
+                        {/*            onChange={e => () => todo.setState((state) => {*/}
+                        {/*                return {category: e.target.value}*/}
+                        {/*            }) }*/}
+                        {/*            />*/}
+                        {/*</Editable>*/}
                         <div className="delete" onClick={() => deleteTodo(index)}>
                             &#128465;
                         </div>

@@ -83,3 +83,8 @@ body {
   color: white;
   padding-top: 10px;
 }
+
+.category-filled.category-input {
+  font-size: 100px;
+  display: none;
+}
