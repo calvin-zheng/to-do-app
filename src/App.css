@@ -38,13 +38,14 @@ body {
 }
 
 .checkbox {
+  color: black;
   width: 24px;
   height: 24px;
   border-radius: 50%;
   margin-right: 10px;
   cursor: pointer;
   background: #d9d9d9;
-  font-size: 10px;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,7 +85,20 @@ body {
   padding-top: 10px;
 }
 
-.category-filled.category-input {
-  font-size: 100px;
-  display: none;
+.category {
+  font-size: 12px;
+  margin-left: 20px;
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.category input{
+  font-size: 12px;
+  padding: 0px;
+  background: none;
+  box-shadow: none;
+  outline: none;
+  border-color: transparent;
+  color: white;
 }

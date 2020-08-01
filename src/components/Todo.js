@@ -77,6 +77,15 @@
             localStorage.setItem('todo', todoData);
         }
 
+        function addCategory(index, category){
+            let todosArray = [...todos];
+            todosArray[index].category = category;
+            setTodos(todosArray);
+            const todoData = JSON.stringify(todosArray);
+            localStorage.setItem('todo', todoData);
+        }
+
+
 
     return (
         <div>
@@ -101,21 +110,22 @@
                             {todo.isCompleted && <span>&#x2714;</span>}
                         </div>
                         <div className={todo.isCompleted ? "done" : ""}>{todo.todo}</div>
-                        {/*<Editable*/}
-                        {/*    text={todo.category}*/}
-                        {/*    placeholder={"Category"}*/}
-                        {/*    type="input"*/}
-                        {/*    >*/}
-                        {/*        <input*/}
-                        {/*            type="text"*/}
-                        {/*            name="category"*/}
-                        {/*            placeholder="Category"*/}
-                        {/*            value={todo.category}*/}
-                        {/*            onChange={e => () => todo.setState((state) => {*/}
-                        {/*                return {category: e.target.value}*/}
-                        {/*            }) }*/}
-                        {/*            />*/}
-                        {/*</Editable>*/}
+                        <div className = "category">
+                            <Editable
+                                text={todo.category}
+                                placeholder={"Add Category"}
+                                type="input"
+                                >
+                                    <input
+                                        type="text"
+                                        name="category"
+                                        placeholder="Category"
+                                        value={todo.category}
+                                        onChange={e => addCategory(index, e.target.value)
+                                            }
+                                        />
+                            </Editable>
+                        </div>
                         <div className="delete" onClick={() => deleteTodo(index)}>
                             &#128465;
                         </div>
