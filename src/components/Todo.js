@@ -81,6 +81,17 @@ class Todo extends Component {
         localStorage.setItem('todo', todoData);
     }
 
+    componentDidMount(){
+        //retrieve data from localStorage
+        const list = localStorage.getItem('todo');
+        const todoItems = JSON.parse(list);
+        this.setState({todos: todoItems});
+
+        if(JSON.parse(localStorage.getItem('nComplete')) != null) {
+            this.setState({nComplete: JSON.parse(localStorage.getItem('nComplete'))});
+        }
+    }
+
 
     render() {
         return (
