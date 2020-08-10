@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 
-// accepts text, placeholder values & input type so can be styled properly
-const Editable = ({
-    text,
-    type,
-    placeholder,
-    children,
-    childRef,
-    ... props
-}) => {
+class Editable extends Component {
+    constructor(props){
+        super(props);
+        this.state = {isEditing: false}
+    }
 
-    // determines whether or not the input box will show
-    const [isEditing, setEditing] = useState(false);
-
-    // focus depending on whether or not editing
-    useEffect(() => {
-        if (childRef && childRef.current && isEditing === true){
-            childRef.current.focus();
+    componentDidUpdate(prevProps, prevState){
+        if(this.props.childRef !== prevProps.childRef || this.state.isEditing !== prevState.isEditing) {
+            if (this.props.childRef && this.props.current && this.state.isEditing === true) {
+                this.props.childRef.focus();
+            }
         }
-    }, [isEditing, childRef]);
+    }
 
     // handler for keys being pressed during editing
-    const handleKeyDown = (event, type) => {
+    handleKeyDown(event, type){
         // key is pressed
         const { key } = event;
         const keys = ["Escape", "Tab"];
@@ -31,32 +25,32 @@ const Editable = ({
             (type === "textarea" && keys.indexOf(key) > -1) ||
             (type !== "textarea" && allKeys.indexOf(key) > -1)
         ) {
-            setEditing(false);
+            this.setState({isEditing: false});
         }
-    };
+    }
 
-
-    return (
-        <section {...props}>
-            {isEditing ? (
-                <div
-                    onBlur={() => setEditing(false)}
-                    onKeyDown={e => handleKeyDown(e, type)}
+    render(){
+        return (
+            <section {...this.props}>
+                {this.state.isEditing ? (
+                    <div
+                        onBlur={() => this.setState({isEditing: false})}
+                        onKeyDown={e => this.handleKeyDown(e, this.props.type)}
                     >
-                    {children}
-                </div>
-            ) : (
-                <div
-                    onClick={() => setEditing(true)}
-                >
+                        {this.props.children}
+                    </div>
+                ) : (
+                    <div
+                        onClick={() => this.setState({isEditing: true})}
+                    >
                     <span>
-                        {text || placeholder || "Editable content"}
+                        {this.props.text || this.props.placeholder || "Editable content"}
                     </span>
-                </div>
-            )}
-        </section>
-    );
-
+                    </div>
+                )}
+            </section>
+        );
+    }
 }
 
 export default Editable;
